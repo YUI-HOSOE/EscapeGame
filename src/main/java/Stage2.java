@@ -3,37 +3,31 @@ import java.util.List;
 
 public class Stage2 {
 	public static void workTree(){
-		//借り物
-		//int key = 0;
-		//Scanner in = new Scanner(System.in);
-		//int direction;
-		//借り物
+	
 		EskScanner in = new EskScanner();
 
-		//key初期化
+		
 		int key = 0;
 		int direction=0;
 
-		//boolean tolk = true;
+		
 		int serect = 0;
 		int mess = 0;
 		int note = 0;
 		int anser = 0;
+		int door=0;
 
-		System.out.println("広い部屋にでました。\n真ん中にレースのカバーをかけた丸いテーブルがあり、"
-				+ "\n３人の女の子がお茶会をしています。"
-				+ "\nまた、正面、右、左のそれぞれに扉があります。\n\nどこから調べますか？\n");
-
+		Text txt = new Text();
+		txt.txt(2);
+		
 		while (true) {
-			System.out.println("\n調べる方向の番号を入力してください。\n"
-					+ "（１）正面　（２）右　（３）左　（４）女の子に話しかける\n");
+			txt.txt(2,0);
 			direction = in.nextInt(4);
 
 			//方向（1）を調べる
 			if (direction == 1) {
-				System.out.println("あなたは今、正面の扉の前にいます。\n扉には鍵がかかっている。扉の横にはタッチスクリーンがあり、"
-						+ "0～9の数字を入力するよう求められている。\n\n"
-						+ "数字を入力しますか？\n\n（１）はい　（２）いいえ");
+				
+				txt.txt(2,1);
 				serect = in.nextInt(2);
 				if (serect == 1) {
 					System.out.println("数字を入力してください");
@@ -77,8 +71,7 @@ public class Stage2 {
 				}
 				//方向２	
 			} else if (direction == 2) {
-				System.out.println("あなたは今、右の扉の前にいます。\n取っ手に手をかけると扉が開いた。\n中には木製の勉強机がおかれており、１枚の紙が置かれている。"
-						+ "\n紙には【お茶会のクッキー】と書かれている。");
+				txt.txt(2,2);
 				note = 1;
 
 				//方向３
@@ -89,7 +82,7 @@ public class Stage2 {
 							+ "1:はい\n2:いいえ");
 					//鍵を使用する場合
 					if (in.nextInt(2) == 1) {
-						System.out.println("扉が開いた\n***ステージ２脱出成功***\n\n");
+						txt.clear(2);
 
 						
 						break;//ここで終了
@@ -98,13 +91,12 @@ public class Stage2 {
 
 				} else {
 					//鍵を持っていない場合
-					System.out.println("あなたは今、左の扉の前にいる。\n扉には鍵がかかっている。鍵があれば開きそうだ");
+					txt.txt(2,3);
 				}
 
 				//方向４	
 			} else if (direction == 4) {
-				System.out.println("赤、青、緑のワンピースを着た三人の女の子が楽しそうにお茶会をしています。\n\n"
-						+ "（１）挨拶をする（２）尋ねる");
+				txt.txt(2,4);
 
 				if (in.nextInt(2) == 1) {
 					System.out.println("あなたが挨拶をすると、３人は順に挨拶を返してくれた。\n\n"
@@ -165,7 +157,7 @@ public class Stage2 {
 							if (note == 1) {
 								System.out.println("テーブルの上にはおいしそうなお菓子がたくさん置かれている\nクッキーの乗った皿を見せてもらいますか？\n\n"
 										+ "1:はい\n2:いいえ");
-								//鍵を使用する場合
+								//1を入力
 								if (in.nextInt(2) == 1) {
 									System.out.println("(赤)「どうぞご自由に」\n");
 									System.out.println("__________");
