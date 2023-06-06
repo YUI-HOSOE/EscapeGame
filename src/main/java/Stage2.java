@@ -2,49 +2,45 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Stage2 {
-	public static void workTree(){
-	
+	public void workTree() {
+
 		EskScanner in = new EskScanner();
 
-		
 		int key = 0;
-		int direction=0;
+		int direction = 0;
 
-		
 		int serect = 0;
 		int mess = 0;
 		int note = 0;
 		int anser = 0;
-		int door=0;
+		int door = 0;
 
 		Text txt = new Text();
 		txt.txt(2);
-		
+
 		while (true) {
-			txt.txt(2,0);
+			txt.txt(2, 0);
 			direction = in.nextInt(4);
 
 			//方向（1）を調べる
 			if (direction == 1) {
-				
-				txt.txt(2,1);
+
+				txt.txt(2, 1);
 				serect = in.nextInt(2);
 				if (serect == 1) {
-					System.out.println("数字を入力してください");
+					txt.others(2, 0);
 					anser = in.nextInt(9999);
 
 					//扉の謎解き 金庫の謎解き
 					if (anser == 1964) {
-						System.out.println("扉が開いた。\n部屋の中には鍵のついた金庫が置かれている。\n"
-								+ "金庫のダイアルを右か左に何回か回せば開きそうだ。\n\n"
-								+ "ダイアルを回しますか？\n（１）はい（２）いいえ");
+						txt.others(2, 1);
 						serect = in.nextInt(2);
 						//リスト　if文に入れる
 						if (serect == 1) {
 							List<String> daial = new ArrayList<>();
 
 							while (true) {
-								System.out.println("（１）左に回す（２）右に回す（３）やめる");
+								txt.others(2, 2);
 								String num = in.next(3);
 								if (num.equals("3")) {
 									break;
@@ -55,97 +51,82 @@ public class Stage2 {
 
 							if (str.equals("11212")) {
 								//メッセージカードの半分と鍵の入った箱入手
-								System.out.println("\n***鍵とメッセージカードの切れ端を手に入れた***\n");
+								txt.item(2, 0);
 								mess = 1;
 								key = 1;
 
 							} else {
-								System.out.println("金庫は開かない\n");
+								txt.exitOrMiss(2, 0);
 							}
 						}
 
 						//扉の数字を間違った場合
 					} else {
-						System.out.println("違うようだ\n初期位置に戻ります\n\n");
+						txt.exitOrMiss(2, 1);
 					}
 				}
 				//方向２	
 			} else if (direction == 2) {
-				txt.txt(2,2);
+				txt.txt(2, 2);
 				note = 1;
 
 				//方向３
 			} else if (direction == 3) {
 				//System.out.println("扉には鍵がかかっている");
 				if (key == 1) {
-					System.out.println("あなたは今、左の扉の前にいる。\n扉には鍵がかかっている\n鍵を使用しますか？\n\n"
-							+ "1:はい\n2:いいえ");
+					txt.item(2, 1);
 					//鍵を使用する場合
 					if (in.nextInt(2) == 1) {
 						txt.clear(2);
 
-						
 						break;//ここで終了
 
 					} //else{　を省略。鍵を使用しない場合はループに戻る
 
 				} else {
 					//鍵を持っていない場合
-					txt.txt(2,3);
+					txt.txt(2, 3);
 				}
 
 				//方向４	
 			} else if (direction == 4) {
-				txt.txt(2,4);
+				txt.txt(2, 4);
 
 				if (in.nextInt(2) == 1) {
-					System.out.println("あなたが挨拶をすると、３人は順に挨拶を返してくれた。\n\n"
-							+ "(赤)「ごきげんよう、自由を求める囚人さん」\n"
-							+ "(青)「ごきげんよう、遊びにいらしたお客様」\n"
-							+ "(緑)「ごきげんよう、好奇心旺盛な旅人さん」\n");
-					
-					System.out.println("初期位置に戻る");
+					txt.tolk(0, 0);
+
+					txt.exitOrMiss(2, 2);
 				} else {
 					//４になるまでループ
 					while (true) {
-						//System.out.println("初期位置に戻る");
-
-						System.out.println("何について尋ねますか？\n\n"
-								+ "（１）正面の扉について（２）右の扉について（３）左の扉について（４）会話をやめる");
+						txt.tolk(0, 1);
 						serect = in.nextInt(4);
 
 						//正面について	
 						if (serect == 1) {
-							System.out.println("(赤)「正面の扉について聞きたいのね」\n"
-									+ "(青)「確か６桁の暗証番号を入力すれば開くんじゃなかったかしら」\n"
-									+ "(緑)「青い子の言ってることは間違いだわ。正確には４桁の数字だもの」\n"
-									+ "(赤)「それで、暗証番号について聞きたいの？」\n\n"
-									+ "（１）はい（２）いいえ");
+							txt.tolk(1, 0);
 
 							if (in.nextInt(2) == 2) {
-								System.out.println("(赤)「あらそう」");
+								txt.tolk(1, 1);
 								continue;
 
 								//論理問題１　
 							} else {
 								while (true) {
-									System.out.println("誰に尋ねる？\n\n（1）赤（２）青（３）緑（4）ヒントを聞く（５）やめる");
+									txt.tolk(1, 3);
 									serect = in.nextInt(5);
 									if (serect == 1) {
-										System.out.println("(赤)「フランス革命の年じゃなかったかしら。自由になりたいあなたにピッタリ。\n"
-												+ "そう、暗証番号は\"1789\"だったはず。ああ、青い子の言ってることは嘘よ。\n彼女、うっかりしてるの」\n");
+										txt.tolk(1, 4);
 									} else if (serect == 2) {
-										System.out.println("(青)「もてなすといえば東京オリンピックよね。あなたはお客様なんだし。\n"
-												+ "だから暗証番号は\"1964\"。そうだ、緑の子が言ってることは嘘だからね。\n彼女、性格悪いから」\n");
+										txt.tolk(1, 5);
 									} else if (serect == 3) {
-										System.out.println("(緑)「暗証番号は\"1827\"。日本からアメリカへ大冒険したジョン万次郎にちなんでつけたの。\n"
-												+ "そうそう、赤の子は本当のこと言ってるわ。\n彼女、しっかり者なの」\n");
-									}else if(serect == 4) {
-										System.out.println("（赤）「私たちの中で本当のことを言ってるのは一人だけ」\n"
-												+ "（青）「本当のことを言ってる一人を見つけてね」");
-									
+										txt.tolk(1, 6);
+										;
+									} else if (serect == 4) {
+										txt.tolk(1, 7);
+
 									} else {
-										System.out.println("会話に戻る");
+										txt.exitOrMiss(2, 3);
 										break;
 									}
 								}
@@ -155,39 +136,24 @@ public class Stage2 {
 						} else if (serect == 2) {
 							//System.out.println("扉には鍵がかかっている");
 							if (note == 1) {
-								System.out.println("テーブルの上にはおいしそうなお菓子がたくさん置かれている\nクッキーの乗った皿を見せてもらいますか？\n\n"
-										+ "1:はい\n2:いいえ");
+								txt.tolk(2, 0);
 								//1を入力
 								if (in.nextInt(2) == 1) {
-									System.out.println("(赤)「どうぞご自由に」\n");
-									System.out.println("__________");
-									System.out.println("|         |");
-									System.out.println("| ●      |");
-									System.out.println("| ●      |");
-									System.out.println("|      ● |");
-									System.out.println("| ●      |");
-									System.out.println("|      ● |");
-									System.out.println("|         |");
-									System.out.println("ーーーーー");
+									txt.tolk(2, 1);
 
 								} //else{　を省略。鍵を使用しない場合はループに戻る
 
 							} else {
 								//鍵を持っていない場合
-								System.out.println("(赤)「あそこは確か、メモを残してたはず」\n"
-										+ "(青)「金庫のダイアルの開け方ね」\n"
-										+ "(緑)「鍵はかけてないから、自由に入ってくださいな」\n");
+								txt.tolk(2, 2);
 							}
 
 							//左の扉について
 						} else if (serect == 3) {
-							System.out.println("(赤)「あそこのカギはどこにあったかしら」\n"
-									+ "(青)「正面の扉の先の金庫に入れたわ」\n"
-									+ "(緑)「ダイアル式の金庫ね。どちらに、何回回すのか、覚えてないわ」\n"
-									+ "(赤)「それのヒントは右の扉の中に置いたわね」\n");
+							txt.tolk(3, 0);
 							//会話をやめる	
 						} else if (serect == 4) {
-							System.out.println("初期位置に戻る");
+							txt.exitOrMiss(2, 2);
 							break;
 						}
 
@@ -195,7 +161,7 @@ public class Stage2 {
 				}
 			}
 		}
-		
+
 	}
 
 }

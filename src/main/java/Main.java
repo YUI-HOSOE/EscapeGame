@@ -31,17 +31,17 @@ public class Main {
 
 		//ステージ１
 		Stage1 one = new Stage1();
-		
+
 		one.workTree();
 
 		//ステージ２
 		Stage2 two = new Stage2();
-		
+
 		two.workTree();
 
 		//ステージ3
 		Stage3 three = new Stage3();
-		
+
 		three.workTree(name);
 		goal();
 	}
